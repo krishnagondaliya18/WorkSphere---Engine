@@ -1,0 +1,78 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  profiles:
+    default: local
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins:
+              - "http://localhost:5173"
+              - "http://localhost:3000"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - PATCH
+              - OPTIONS
+            allowedHeaders: "*"
+            allowCredentials: true
+            maxAge: 3600
+      routes:
+        - id: auth-service
+          uri: ${AUTH_SERVICE_URL:http://localhost:8081}
+          predicates:
+            - Path=/api/v1/auth/**
+
+        - id: organization-service
+          uri: ${ORGANIZATION_SERVICE_URL:http://localhost:8082}
+          predicates:
+            - Path=/api/v1/organizations/**
+
+        - id: employee-service
+          uri: ${EMPLOYEE_SERVICE_URL:http://localhost:8083}
+          predicates:
+            - Path=/api/v1/employees/**
+
+        - id: project-task-service
+          uri: ${PROJECT_TASK_SERVICE_URL:http://localhost:8084}
+          predicates:
+            - Path=/api/v1/projects/**, /api/v1/tasks/**
+
+        - id: work-management-service
+          uri: ${WORK_MANAGEMENT_SERVICE_URL:http://localhost:8085}
+          predicates:
+            - Path=/api/v1/work-reports/**, /api/v1/work-requests/**
+
+        - id: notification-service
+          uri: ${NOTIFICATION_SERVICE_URL:http://localhost:8086}
+          predicates:
+            - Path=/api/v1/notifications/**
+
+        - id: recruitment-service
+          uri: ${RECRUITMENT_SERVICE_URL:http://localhost:8087}
+          predicates:
+            - Path=/api/v1/careers/**, /api/v1/recruitment/**
+
+        - id: analytics-audit-service
+          uri: ${ANALYTICS_AUDIT_SERVICE_URL:http://localhost:8088}
+          predicates:
+            - Path=/api/v1/analytics/**, /api/v1/audit-logs/**
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always

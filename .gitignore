@@ -1,0 +1,48 @@
+# Operating System Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE & Editors
+.idea/
+*.iml
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+*.sublime-project
+*.sublime-workspace
+
+# Build & Compilation Outputs
+target/
+*.class
+*.jar
+*.war
+*.ear
+dist/
+build/
+*.tsbuildinfo
+.gradle/
+
+# Node & Frontend
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.turbo/
+
+# Environment & Secrets
+.env
+.env.local
+*.pem
+*.key
+
+# Logs
+logs/
+*.log
+
+# Docker & Database Volumes
+docker-volumes/
+postgres_data/
+kafka_data/
+redis_data/
